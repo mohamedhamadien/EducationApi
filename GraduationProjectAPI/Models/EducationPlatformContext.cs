@@ -31,8 +31,7 @@ namespace GraduationProjectAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.;Database=EducationPlatform;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=EducationPlatform;Trusted_Connection=True; TrustServerCertificate=True;");
             }
         }
 
@@ -42,18 +41,14 @@ namespace GraduationProjectAPI.Models
             {
                 entity.ToTable("Chat");
 
-                entity.Property(e => e.ChatId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("Chat_ID");
+                entity.Property(e => e.ChatId).HasColumnName("Chat_ID");
 
                 entity.Property(e => e.Title).HasMaxLength(120);
             });
 
             modelBuilder.Entity<Class>(entity =>
             {
-                entity.Property(e => e.ClassId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("Class_ID");
+                entity.Property(e => e.ClassId).HasColumnName("Class_ID");
 
                 entity.Property(e => e.ChatIdfk).HasColumnName("Chat_IDFK");
 
@@ -70,9 +65,7 @@ namespace GraduationProjectAPI.Models
             {
                 entity.ToTable("Contant");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.ClassIdfk).HasColumnName("Class_IDFK");
 
@@ -92,9 +85,7 @@ namespace GraduationProjectAPI.Models
             {
                 entity.ToTable("Contant_Images");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.ContantIdfk).HasColumnName("Contant_IDFK");
 
@@ -109,9 +100,7 @@ namespace GraduationProjectAPI.Models
             {
                 entity.ToTable("Contant_PDFs");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.ContantIdfk).HasColumnName("Contant_IDFK");
 
@@ -126,9 +115,7 @@ namespace GraduationProjectAPI.Models
             {
                 entity.ToTable("Contant_Videos");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.ContantIdfk).HasColumnName("Contant_IDFK");
 
@@ -157,9 +144,7 @@ namespace GraduationProjectAPI.Models
             {
                 entity.HasKey(e => e.MId);
 
-                entity.Property(e => e.MId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("M_ID");
+                entity.Property(e => e.MId).HasColumnName("M_ID");
 
                 entity.Property(e => e.ChatIdfk).HasColumnName("Chat_IDFK");
 
@@ -181,9 +166,7 @@ namespace GraduationProjectAPI.Models
 
             modelBuilder.Entity<Month>(entity =>
             {
-                entity.Property(e => e.MonthId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("Month_ID");
+                entity.Property(e => e.MonthId).HasColumnName("Month_ID");
 
                 entity.Property(e => e.StIdfk).HasColumnName("St_IDFK");
 
@@ -200,9 +183,7 @@ namespace GraduationProjectAPI.Models
 
                 entity.ToTable("Student");
 
-                entity.Property(e => e.StId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("St_ID");
+                entity.Property(e => e.StId).HasColumnName("St_ID");
 
                 entity.Property(e => e.Address).HasMaxLength(120);
 
