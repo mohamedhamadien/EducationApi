@@ -43,7 +43,7 @@ namespace GraduationProjectAPI.Controllers
         #endregion
 
         #region GetOneChat
-        [HttpGet("GetOneChat/{id:int}", Name = "GetClass")]
+        [HttpGet("GetOneChat/{id:int}")]
         public async Task<IActionResult> GetOneChat(int id)
         {
             var chat = await _context.Chats.FirstOrDefaultAsync(c => c.ChatId == id);
@@ -51,7 +51,8 @@ namespace GraduationProjectAPI.Controllers
             {
                 GetChatsDTO getchat = new GetChatsDTO
                 {
-                    ID = chat.ChatId, Title = chat.Title
+                    ID = chat.ChatId,
+                    Title = chat.Title
                 };
                 return Ok(getchat);
             }

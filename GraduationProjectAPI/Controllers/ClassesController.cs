@@ -94,13 +94,13 @@ namespace GraduationProjectAPI.Controllers
             {
                 var cls = new Class();
                 cls.Title = newclass.Class_Name;
-                cls.ChatIdfk = newclass.Chat_ID;               
+                cls.ChatIdfk = newclass.Chat_ID;
                 _context.Classes.Add(cls);
                 _context.SaveChanges();
                 return Ok("Class added successfully");
-                
+
             }
-            catch 
+            catch
             {
                 return BadRequest("erorr");
             }
@@ -109,7 +109,7 @@ namespace GraduationProjectAPI.Controllers
 
         #region DeleteClass
         [HttpDelete("DeleteClass/{id:int}")]
-        public IActionResult DeleteEmployee(int id)
+        public IActionResult DeleteClasses(int id)
         {
             Class? cls = _context.Classes.FirstOrDefault(e => e.ClassId == id);
             if (cls != null)

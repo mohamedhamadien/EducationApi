@@ -50,7 +50,7 @@ namespace GraduationProjectAPI.Controllers
         public async Task<IActionResult> ChatMessages(int id)
         {
             List<GetAllMessages> msgdto = new List<GetAllMessages>();
-            var message = await _context.Messages.Where(m=>m.ChatIdfk==id).ToListAsync();
+            var message = await _context.Messages.Where(m => m.ChatIdfk == id).ToListAsync();
             if (message != null)
             {
                 foreach (var c in message)
