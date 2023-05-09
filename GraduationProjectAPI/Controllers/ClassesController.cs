@@ -11,8 +11,8 @@ namespace GraduationProjectAPI.Controllers
     public class ClassesController : ControllerBase
     {
         #region Load
-        private readonly EducationPlatformContext _context;
-        public ClassesController(EducationPlatformContext context)
+        private readonly EducationPlatform_GraduationProjectContext _context;
+        public ClassesController(EducationPlatform_GraduationProjectContext context)
         {
             _context = context;
         }
@@ -23,15 +23,15 @@ namespace GraduationProjectAPI.Controllers
         public async Task<IActionResult> GetAllClasses()
         {
             List<GetAllClassesDTO> classesdto = new List<GetAllClassesDTO>();
-            var classes = await _context.Classes.ToListAsync();
-            if (classes != null)
+            var classes = await _context.Classes.Include(c=>c.Chat).ToListAsync();
+            if (classes.Count() > 0)
             {
                 foreach (var c in classes)
                 {
                     GetAllClassesDTO obj = new GetAllClassesDTO();
                     obj.Class_ID = c.ClassId;
                     obj.Class_Name = c.Title;
-                    obj.Chat_ID = c.ChatIdfk;
+                    obj.Chat_ID = c.Chat.ChatId;
                     classesdto.Add(obj);
                 }
                 return Ok(classesdto);
@@ -48,15 +48,15 @@ namespace GraduationProjectAPI.Controllers
         [HttpGet("GetOneClass/{id:int}")]
         public async Task<IActionResult> GetOneClasse(int id)
         {
-            var cls = await _context.Classes.FirstOrDefaultAsync(c => c.ClassId == id);
+            var cls = await _context.Classes.Include(c=>c.Chat).FirstOrDefaultAsync(c => c.ClassId == id);
             if (cls != null)
             {
                 GetAllClassesDTO getcls = new GetAllClassesDTO
                 {
                     Class_ID = cls.ClassId,
                     Class_Name = cls.Title,
-                    Chat_ID = cls.ChatIdfk,
-                };
+                    Chat_ID = cls.Chat.ChatId
+            };
                 return Ok(getcls);
             }
             else
@@ -93,8 +93,7 @@ namespace GraduationProjectAPI.Controllers
             try
             {
                 var cls = new Class();
-                cls.Title = newclass.Class_Name;
-                cls.ChatIdfk = newclass.Chat_ID;
+                cls.Title = newclass.Class_Name;                
                 _context.Classes.Add(cls);
                 _context.SaveChanges();
                 return Ok("Class added successfully");

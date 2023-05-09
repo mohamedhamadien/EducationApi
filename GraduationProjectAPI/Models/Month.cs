@@ -18,8 +18,8 @@ namespace GraduationProjectAPI.Models
         public bool? Oct { get; set; }
         public bool? Nov { get; set; }
         public bool? Dec { get; set; }
-        public int? StIdfk { get; set; }
+        public int StId { get; set; }
 
-        public virtual Student? StIdfkNavigation { get; set; }
+        public virtual Student St { get; set; } = null!;
     }
 }

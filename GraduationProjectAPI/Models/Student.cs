@@ -16,13 +16,13 @@ namespace GraduationProjectAPI.Models
         public string? Phone { get; set; }
         public string? Address { get; set; }
         public DateTime? RegistedDate { get; set; }
-        public bool PaymentState { get; set; }
-        public bool Available { get; set; }
-        public int ClassIdfk { get; set; }
-        public string UserNameFk { get; set; } = null!;
+        //public bool PaymentState { get; set; }
+        //public bool Available { get; set; }
+        public int ClassId { get; set; }
+        public string? IdentityUserId { get; set; }
 
-        public virtual Class ClassIdfkNavigation { get; set; } = null!;
-        public virtual Login UserNameFkNavigation { get; set; } = null!;
+        public virtual Class Class { get; set; } = null!;
+        public virtual AspNetUser? IdentityUser { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Month> Months { get; set; }
     }

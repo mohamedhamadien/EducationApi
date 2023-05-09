@@ -2,7 +2,7 @@
 {
     public class CreateVideoDto
     {
-        public int? ContantIdfk { get; set; }
+        public int ContantIdfk { get; set; }
         public string? Path { get; set; }
     }
 }

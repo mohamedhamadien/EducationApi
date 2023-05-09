@@ -7,14 +7,14 @@ namespace GraduationProjectAPI.Models
     {
         public Chat()
         {
-            Classes = new HashSet<Class>();
             Messages = new HashSet<Message>();
         }
 
         public int ChatId { get; set; }
         public string? Title { get; set; }
+        public int ClassIdfk { get; set; }
 
-        public virtual ICollection<Class> Classes { get; set; }
+        public virtual Class ClassIdfkNavigation { get; set; } = null!;
         public virtual ICollection<Message> Messages { get; set; }
     }
 }

@@ -1,25 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Full Stack .Net\\Graduation Project\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj": {}
+    "C:\\Users\\mm\\Downloads\\FinalAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj": {}
   },
   "projects": {
-    "D:\\Full Stack .Net\\Graduation Project\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj": {
+    "C:\\Users\\mm\\Downloads\\FinalAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Full Stack .Net\\Graduation Project\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
+        "projectUniqueName": "C:\\Users\\mm\\Downloads\\FinalAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
         "projectName": "GraduationProjectAPI",
-        "projectPath": "D:\\Full Stack .Net\\Graduation Project\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
-        "packagesPath": "C:\\Users\\UNITED PC\\.nuget\\packages\\",
-        "outputPath": "D:\\Full Stack .Net\\Graduation Project\\GraduationProjectAPI\\GraduationProjectAPI\\obj\\",
+        "projectPath": "C:\\Users\\mm\\Downloads\\FinalAPI\\GraduationProjectAPI\\GraduationProjectAPI\\GraduationProjectAPI.csproj",
+        "packagesPath": "C:\\Users\\mm\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mm\\Downloads\\FinalAPI\\GraduationProjectAPI\\GraduationProjectAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\UNITED PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\mm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -82,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

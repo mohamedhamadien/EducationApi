@@ -9,9 +9,9 @@ namespace GraduationProjectAPI.Controllers
     [ApiController]
     public class ImagesController : ControllerBase
     {
-        private readonly EducationPlatformContext _context;
+        private readonly EducationPlatform_GraduationProjectContext _context;
 
-        public ImagesController(EducationPlatformContext context)
+        public ImagesController(EducationPlatform_GraduationProjectContext context)
         {
             _context = context;
         }
@@ -21,7 +21,7 @@ namespace GraduationProjectAPI.Controllers
         public async Task<IActionResult> CreateImage([FromForm] CreateImageDto dto)
         {
 
-            var IsValidContent = await _context.Contants.AnyAsync(c => c.Id == dto.ContantIdfk);
+            var IsValidContent = await _context.Contents.AnyAsync(c => c.Id == dto.ContantIdfk);
             if (!IsValidContent)
             {
                 return BadRequest("Invalid Content ID");
@@ -33,9 +33,9 @@ namespace GraduationProjectAPI.Controllers
             }
 
 
-            ContantImage img = new ContantImage()
+            ContentImage img = new ContentImage()
             {
-                ContantIdfk = dto.ContantIdfk,
+                ContentId = dto.ContantIdfk,
                 Path = dto.Path,
             };
             await _context.AddAsync(img);
@@ -47,13 +47,13 @@ namespace GraduationProjectAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateImage(int id, [FromForm] CreateImageDto dto)
         {
-            var image = await _context.ContantImages.FindAsync(id);
+            var image = await _context.ContentImages.FindAsync(id);
             if (image == null)
             {
                 return NotFound("Invalid Image ID");
             }
 
-            var IsValidContent = await _context.Contants.AnyAsync(c => c.Id == dto.ContantIdfk);
+            var IsValidContent = await _context.Contents.AnyAsync(c => c.Id == dto.ContantIdfk);
             if (!IsValidContent)
             {
                 return BadRequest("Invalid Content ID");
@@ -71,10 +71,8 @@ namespace GraduationProjectAPI.Controllers
             else
             {
 
-                image.ContantIdfk = dto.ContantIdfk;
+                image.ContentId = dto.ContantIdfk;
                 image.Path = dto.Path;
-
-
                 _context.SaveChanges();
                 return Ok(image);
             }
@@ -84,12 +82,12 @@ namespace GraduationProjectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllImages()
         {
-            var Images = await _context.ContantImages.Include(m => m.ContantIdfkNavigation)
+            var Images = await _context.ContentImages.Include(m => m.Content)
                 .Select(m => new ImagesDetailsDto
                 {
                     Id = m.Id,
                     Path = m.Path,
-                    ContantTitle = m.ContantIdfkNavigation.Title
+                    ContantTitle = m.Content.Title
                 }).OrderByDescending(m => m.ContantTitle)
                 .ToArrayAsync();
             return Ok(Images);
@@ -99,21 +97,17 @@ namespace GraduationProjectAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteImageByID(int id)
         {
-            var image = await _context.ContantImages.FindAsync(id);
+            var image = await _context.ContentImages.FindAsync(id);
             if (image == null)
             {
                 return BadRequest("There is no Image with this ID");
             }
             else
             {
-                _context.ContantImages.Remove(image);
+                _context.ContentImages.Remove(image);
                 await _context.SaveChangesAsync();
                 return Ok(image);
             }
         }
-
-
-
-
     }
 }

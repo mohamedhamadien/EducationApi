@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace GraduationProjectAPI.Models
 {
-    public partial class ContantImage
+    public partial class ContentPdf
     {
         public int Id { get; set; }
-        public int? ContantIdfk { get; set; }
         public string? Path { get; set; }
+        public int ContentId { get; set; }
 
-        public virtual Contant? ContantIdfkNavigation { get; set; }
+        public virtual Content Content { get; set; } = null!;
     }
 }

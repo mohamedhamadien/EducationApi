@@ -10,9 +10,9 @@ namespace GraduationProjectAPI.Controllers
     [ApiController]
     public class VideosController : ControllerBase
     {
-        private readonly EducationPlatformContext _context;
+        private readonly EducationPlatform_GraduationProjectContext _context;
 
-        public VideosController(EducationPlatformContext context)
+        public VideosController(EducationPlatform_GraduationProjectContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace GraduationProjectAPI.Controllers
         public async Task<IActionResult> CreateVideo([FromForm] CreateImageDto dto)
         {
 
-            var IsValidContent = await _context.Contants.AnyAsync(c => c.Id == dto.ContantIdfk);
+            var IsValidContent = await _context.Contents.AnyAsync(c => c.Id == dto.ContantIdfk);
             if (!IsValidContent)
             {
                 return BadRequest("Invalid Content ID");
@@ -34,9 +34,9 @@ namespace GraduationProjectAPI.Controllers
             }
 
 
-            ContantVideo video = new ContantVideo()
+            ContentVideo video = new ContentVideo()
             {
-                ContantIdfk = dto.ContantIdfk,
+                ContentId = dto.ContantIdfk,
                 Path = dto.Path,
             };
             await _context.AddAsync(video);
@@ -48,13 +48,13 @@ namespace GraduationProjectAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVideo(int id, [FromForm] CreateVideoDto dto)
         {
-            var video = await _context.ContantVideos.FindAsync(id);
+            var video = await _context.ContentVideos.FindAsync(id);
             if (video == null)
             {
                 return NotFound("Invalid Video ID");
             }
 
-            var IsValidContent = await _context.Contants.AnyAsync(c => c.Id == dto.ContantIdfk);
+            var IsValidContent = await _context.Contents.AnyAsync(c => c.Id == dto.ContantIdfk);
             if (!IsValidContent)
             {
                 return BadRequest("Invalid Content ID");
@@ -72,7 +72,7 @@ namespace GraduationProjectAPI.Controllers
             else
             {
 
-                video.ContantIdfk = dto.ContantIdfk;
+                video.ContentId = dto.ContantIdfk;
                 video.Path = dto.Path;
 
 
@@ -85,12 +85,12 @@ namespace GraduationProjectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllVideos()
         {
-            var Videos = await _context.ContantVideos.Include(m => m.ContantIdfkNavigation)
+            var Videos = await _context.ContentVideos.Include(m => m.Content)
                 .Select(m => new VideoDetailsDto
                 {
                     Id = m.Id,
                     Path = m.Path,
-                    ContantTitle = m.ContantIdfkNavigation.Title
+                    ContantTitle = m.Content.Title
                 }).OrderByDescending(m => m.ContantTitle)
                 .ToArrayAsync();
             return Ok(Videos);
@@ -100,19 +100,17 @@ namespace GraduationProjectAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVideoByID(int id)
         {
-            var video = await _context.ContantVideos.FindAsync(id);
+            var video = await _context.ContentVideos.FindAsync(id);
             if (video == null)
             {
                 return BadRequest("There is no Video with this ID");
             }
             else
             {
-                _context.ContantVideos.Remove(video);
+                _context.ContentVideos.Remove(video);
                 await _context.SaveChangesAsync();
                 return Ok(video);
             }
         }
-
-
     }
 }

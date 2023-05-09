@@ -9,9 +9,9 @@ namespace GraduationProjectAPI.Controllers
     [ApiController]
     public class PDFsController : ControllerBase
     {
-        private readonly EducationPlatformContext _context;
+        private readonly EducationPlatform_GraduationProjectContext _context;
 
-        public PDFsController(EducationPlatformContext context)
+        public PDFsController(EducationPlatform_GraduationProjectContext context)
         {
             _context = context;
         }
@@ -21,7 +21,7 @@ namespace GraduationProjectAPI.Controllers
         public async Task<IActionResult> CreatePdf([FromForm] CreatePDFDto dto)
         {
 
-            var IsValidContent = await _context.Contants.AnyAsync(c => c.Id == dto.ContantIdfk);
+            var IsValidContent = await _context.Contents.AnyAsync(c => c.Id == dto.ContantIdfk);
             if (!IsValidContent)
             {
                 return BadRequest("Invalid Content ID");
@@ -33,9 +33,9 @@ namespace GraduationProjectAPI.Controllers
             }
 
 
-            ContantPdf file = new ContantPdf()
+            ContentPdf file = new ContentPdf()
             {
-                ContantIdfk = dto.ContantIdfk,
+                ContentId = dto.ContantIdfk,
                 Path = dto.Path,
             };
             await _context.AddAsync(file);
@@ -47,13 +47,13 @@ namespace GraduationProjectAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePDF(int id, [FromForm] CreatePDFDto dto)
         {
-            var file = await _context.ContantPdfs.FindAsync(id);
+            var file = await _context.ContentPdfs.FindAsync(id);
             if (file == null)
             {
                 return NotFound("Invalid PDF ID");
             }
 
-            var IsValidContent = await _context.Contants.AnyAsync(c => c.Id == dto.ContantIdfk);
+            var IsValidContent = await _context.Contents.AnyAsync(c => c.Id == dto.ContantIdfk);
             if (!IsValidContent)
             {
                 return BadRequest("Invalid Content ID");
@@ -71,7 +71,7 @@ namespace GraduationProjectAPI.Controllers
             else
             {
 
-                file.ContantIdfk = dto.ContantIdfk;
+                file.ContentId = dto.ContantIdfk;
                 file.Path = dto.Path;
 
 
@@ -84,12 +84,12 @@ namespace GraduationProjectAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPDFs()
         {
-            var files = await _context.ContantPdfs.Include(m => m.ContantIdfkNavigation)
+            var files = await _context.ContentPdfs.Include(m => m.Content)
                 .Select(m => new PDFDetailsDto
                 {
                     Id = m.Id,
                     Path = m.Path,
-                    ContantTitle = m.ContantIdfkNavigation.Title
+                    ContantTitle = m.Content.Title
                 }).OrderByDescending(m => m.ContantTitle)
                 .ToArrayAsync();
             return Ok(files);
@@ -99,21 +99,17 @@ namespace GraduationProjectAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePDFByID(int id)
         {
-            var file = await _context.ContantPdfs.FindAsync(id);
+            var file = await _context.ContentPdfs.FindAsync(id);
             if (file == null)
             {
                 return BadRequest("There is no pdf with this ID");
             }
             else
             {
-                _context.ContantPdfs.Remove(file);
+                _context.ContentPdfs.Remove(file);
                 await _context.SaveChangesAsync();
                 return Ok(file);
             }
         }
-
-
     }
-
 }
-
